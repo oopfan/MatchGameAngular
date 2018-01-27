@@ -18,26 +18,30 @@
       scope: {
       },
       link: function(scope, element, attrs) {
-        scope.cards = [
-          { value: 5, state: 'selected' },
-          { value: 2, state: 'selected' },
-          { value: 5, state: 'selected' },
-          { value: 4, state: 'selected' },
-          { value: 1, state: 'selected' },
-          { value: 6, state: 'selected' },
-          { value: 3, state: 'selected' },
-          { value: 2, state: 'selected' },
-          { value: 7, state: 'selected' },
-          { value: 4, state: 'selected' },
-          { value: 6, state: 'selected' },
-          { value: 1, state: 'selected' },
-          { value: 8, state: 'selected' },
-          { value: 3, state: 'selected' },
-          { value: 8, state: 'selected' },
-          { value: 7, state: 'selected' }
-        ];
+        scope.cards = foo();
       }
     };
+
+    function foo() {
+      return [
+        { value: 5, state: 'selected' },
+        { value: 2, state: 'selected' },
+        { value: 5, state: 'selected' },
+        { value: 4, state: 'selected' },
+        { value: 1, state: 'selected' },
+        { value: 6, state: 'selected' },
+        { value: 3, state: 'selected' },
+        { value: 2, state: 'selected' },
+        { value: 7, state: 'selected' },
+        { value: 4, state: 'selected' },
+        { value: 6, state: 'selected' },
+        { value: 1, state: 'selected' },
+        { value: 8, state: 'selected' },
+        { value: 3, state: 'selected' },
+        { value: 8, state: 'selected' },
+        { value: 7, state: 'selected' }
+      ];
+    }
   });
 
   app.directive('card', function() {
