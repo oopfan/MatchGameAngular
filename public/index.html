@@ -13,10 +13,10 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body ng-controller="ngMatchGameController">
-  <div id="you-won">
+  <div class="you-won" game-state="gameState">
     <span>You're a Winner!</span>
   </div>
-  <div id="match-game" class="container">
+  <div class="match-game container" game-state="gameState">
     <div class="row">
       <div class="col-md-3">
         <h1>Match Game (Angular)</h1>
@@ -35,7 +35,7 @@
           <button type="button" className="btn btn-default" ng-click="newGame()">New Game</button>
         </p>
       </div>
-      <game id="the-game" class="col-md-9"></game>
+      <div class="game col-md-9" game-state="gameState"></div>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js" type="text/javascript"></script>

@@ -42,7 +42,7 @@ p {
   cursor: pointer;
 }
 
-#you-won {
+.you-won {
   display: none;
   text-align: center;
   align-items: center;
@@ -55,7 +55,7 @@ p {
   color: red;
 }
 
-#match-game {
+.match-game {
   opacity: 1;
   padding-top: 5.25em;
   transition-property: opacity;
