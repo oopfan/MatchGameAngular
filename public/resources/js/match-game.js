@@ -1,15 +1,30 @@
 (function() {
   var app = angular.module('ngMatchGame', []);
 
+  /*
+    The controller is responsible for creating the game state
+    which is used by the four directives defined below it.
+  */
   app.controller('ngMatchGameController', function($scope) {
+    /*
+      This method is called by the 'New Game' button
+    */
     $scope.newGame = function() {
       $scope.gameState = newGame();
     };
+    /*
+      This method is called by the 'Restart Game' button
+    */
     $scope.restartGame = function() {
       $scope.gameState = restartGame();
     };
+
+    // Make the initial state and new game.
     $scope.newGame();
 
+    /*
+      Create the game state for a new game (i.e. all new shuffled cards).
+    */
     function newGame() {
       return {
         cards: generateCards(),
@@ -18,6 +33,9 @@
       };
     }
 
+    /*
+      Generate game state for the current game restarted.
+    */
     function restartGame() {
       var cards = angular.copy($scope.gameState.cards);
       cards.forEach(function(card) {
@@ -30,6 +48,10 @@
       };
     }
 
+    /*
+      Generate and return an object containing matching card values
+      with initial state of hidden.
+    */
     function generateCards() {
       var cardValues = generateCardValues();
       var cards = cardValues.map(function(cardValue) {
@@ -41,6 +63,9 @@
       return cards;
     }
 
+    /*
+      Generate and return an array of matching card values.
+    */
     function generateCardValues() {
       var orderedCards = [];
       for (var i = 1; i <= 8; i++) {
@@ -56,6 +81,9 @@
       return randomCards;
     }
 
+    /*
+      Random integers given a range thanks to Mozilla
+    */
     function getRandomInt(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
@@ -64,6 +92,11 @@
 
   });
 
+  /*
+    A directive that watches for a solved game.
+    It immediately changes the CSS 'display' property to 'flex',
+    and then waits 2 seconds before changing it to 'none'.
+  */
   app.directive('youWon', function($timeout) {
     return {
       restrict: 'C',
@@ -85,6 +118,11 @@
     };
   });
 
+  /*
+    A directive that watches for a solved game.
+    It immediately changes the CSS 'opacity' property to '0.1',
+    and then waits 2 seconds before changing it to '1'.
+  */
   app.directive('matchGame', function($timeout) {
     return {
       restrict: 'C',
@@ -106,6 +144,9 @@
     };
   });
 
+  /*
+    This directive represents the game.
+  */
   app.directive('game', function($timeout) {
     return {
       restrict: 'C',
@@ -115,6 +156,10 @@
         gameState: '='
       },
       link: function(scope, element, attrs) {
+        /*
+          Flips over a given card and checks to see if two cards are flipped over.
+          Updates styles on flipped cards depending whether they are a match or not.
+        */
         scope.cardClick = function(card, cardIndex) {
           // Test if this card is already flipped
           if (card.cardState !== 'hidden') {
@@ -161,6 +206,9 @@
     };
   });
 
+  /*
+    This directive represents the game card.
+  */
   app.directive('card', function() {
     return {
       restrict: 'E',
@@ -171,6 +219,10 @@
         cardState: '@'
       },
       link: function(scope, element, attrs) {
+        /*
+          Watch for changes in the card state (i.e. 'hidden', 'selected', and 'solved')
+          that the game directive will make.
+        */
         scope.$watch('cardState', function(newValue, oldValue) {
           if (newValue !== oldValue) {
             update();
